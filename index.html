@@ -41,40 +41,33 @@
     </div>
 
     <script>
-        // ฟังก์ชันดึงข้อมูลทั้งหมดจาก Local Storage
         function getAllTransactions() {
             return JSON.parse(localStorage.getItem("transactions")) || [];
         }
-
-        // ฟังก์ชันการเรียงข้อมูลตามวันที่ (จากน้อยไปมาก)
         function sortTransactionsByDate(transactions) {
             return transactions.sort((a, b) => new Date(a.date) - new Date(b.date));
         }
-
-// ฟังก์ชันแบ่งข้อมูลเป็นเดือนโดยใช้ชื่อเดือนเต็ม
-function groupTransactionsByMonth(transactions) {
-    const groupedTransactions = {};
-    const monthNames = [
-        "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
-        "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
-    ];
-
-    transactions.forEach(transaction => {
-        const date = new Date(transaction.date);
-        const monthName = monthNames[date.getMonth()]; // ใช้ชื่อเดือนเต็ม
-        const year = date.getFullYear();
-        const monthYear = `เดือน${monthName} ${year}`;  // สร้างชื่อเดือนและปีในรูปแบบ "เดือน ปี"
-
-        if (!groupedTransactions[monthYear]) {
-            groupedTransactions[monthYear] = [];
+        function groupTransactionsByMonth(transactions) {
+            const groupedTransactions = {};
+            const monthNames = [
+                "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
+                "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+            ];
+        
+            transactions.forEach(transaction => {
+                const date = new Date(transaction.date);
+                const monthName = monthNames[date.getMonth()]; 
+                const year = date.getFullYear();
+                const monthYear = `เดือน${monthName} ${year}`;  
+        
+                if (!groupedTransactions[monthYear]) {
+                    groupedTransactions[monthYear] = [];
+                }
+                groupedTransactions[monthYear].push(transaction);
+            });
+        
+            return groupedTransactions;
         }
-        groupedTransactions[monthYear].push(transaction);
-    });
-
-    return groupedTransactions;
-}
-
-        // ฟังก์ชันคำนวณยอดรวมรายเดือน
         function getMonthlySummaryData(groupedTransactions) {
             const monthlySummary = {};
 
@@ -90,7 +83,7 @@ function groupTransactionsByMonth(transactions) {
                     }
                 });
 
-                const balanceTotal = incomeTotal - expenseTotal;
+            const balanceTotal = incomeTotal - expenseTotal;
 
                 monthlySummary[monthYear] = {
                     incomeTotal: parseFloat(incomeTotal.toFixed(3)).toLocaleString(),
@@ -103,14 +96,13 @@ function groupTransactionsByMonth(transactions) {
             return monthlySummary;
         }
 
-        // ฟังก์ชันแสดงข้อมูลธุรกรรมและยอดรวมรายเดือน
         function displayTransactions() {
             const transactions = sortTransactionsByDate(getAllTransactions());
             const groupedTransactions = groupTransactionsByMonth(transactions);
             const monthlySummary = getMonthlySummaryData(groupedTransactions);
 
             const transactionTable = document.getElementById("transactionTable");
-            transactionTable.innerHTML = ""; // ล้างข้อมูลเดิม
+            transactionTable.innerHTML = ""; 
 
             for (const monthYear in groupedTransactions) {
                 const monthSection = document.createElement("section");
@@ -126,9 +118,8 @@ function groupTransactionsByMonth(transactions) {
                     <p>รายจ่าย: ${monthlySummary[monthYear].expenseTotal}฿</p>
                     <p>ยอดคงเหลือ: ${monthlySummary[monthYear].balanceTotal}฿</p>
                 `;
-                monthSection.appendChild(summaryBox); // เพิ่มยอดรวมรายเดือนที่ด้านบนของตาราง
+                monthSection.appendChild(summaryBox); 
 
-                // สร้างตาราง
                 const table = document.createElement("table");
                 table.style.width = "100%";
                 table.style.borderCollapse = "collapse";
@@ -149,11 +140,9 @@ function groupTransactionsByMonth(transactions) {
                 let previousDate = "";
                 let rowColor = "";
 
-                // แสดงข้อมูลธุรกรรมแต่ละรายการ
                 groupedTransactions[monthYear].forEach((transaction, index) => {
                 const row = document.createElement("tr");
 
-                // ตรวจสอบวันที่และเปลี่ยนสีพื้นหลัง
                 const currentDate = transaction.date;
                 if (currentDate !== previousDate) {
                     rowColor = rowColor === "#D6EAF8" ? "#FADBD8" : "#D6EAF8"; // สลับสีพื้นหลัง
@@ -162,10 +151,9 @@ function groupTransactionsByMonth(transactions) {
 
                 row.style.backgroundColor = rowColor;
 
-                // เปลี่ยนจาก "Income" เป็น "รายรับ" และ "Expense" เป็น "รายจ่าย"
                 const category = transaction.category === "Income" ? "รายรับ" : "รายจ่าย";
-                const categoryClass = transaction.category === "Income" ? "income" : "expense"; // สีที่แตกต่างสำหรับรายรับและรายจ่าย
-                const categoryColor = transaction.category === "Income" ? "#4CAF50" : "#f44336"; // สีเขียวสำหรับรายรับ, แดงสำหรับรายจ่าย
+                const categoryClass = transaction.category === "Income" ? "income" : "expense"; 
+                const categoryColor = transaction.category === "Income" ? "#4CAF50" : "#f44336"; 
 
                 row.innerHTML = `
                     <td>${index + 1}</td>
@@ -178,12 +166,11 @@ function groupTransactionsByMonth(transactions) {
             tbody.appendChild(row);
         });
 
-                monthSection.appendChild(table); // เพิ่มตารางข้อมูล
+                monthSection.appendChild(table); 
                 transactionTable.appendChild(monthSection);
             }
         }
 
-        // ฟังก์ชันคำนวณยอดรวม
         function getSummaryData() {
             const allTransactions = getAllTransactions();
             let incomeTotal = 0;
@@ -206,7 +193,6 @@ function groupTransactionsByMonth(transactions) {
             };
         }
 
-        // ฟังก์ชันแสดงผลยอดรวม
         function renderSummaryOnHome() {
             const summaryResult = getSummaryData();
             document.getElementById("incomeTotalDisplay").textContent = `รายรับรวม: ${summaryResult.incomeTotal}฿`;
@@ -214,7 +200,6 @@ function groupTransactionsByMonth(transactions) {
             document.getElementById("balanceTotalDisplay").textContent = `ยอดคงเหลือ: ${summaryResult.balanceTotal}฿`;
         }
 
-        // เรียกใช้ฟังก์ชันเมื่อโหลดหน้าเว็บ
         window.onload = () => {
             renderSummaryOnHome();
             displayTransactions();
@@ -222,7 +207,7 @@ function groupTransactionsByMonth(transactions) {
 
         function toggleLeftBar() {
     const leftbar = document.querySelector(".leftbar");
-    leftbar.classList.toggle("open");  // เพิ่ม/ลบ class 'open' เพื่อแสดง/ซ่อน leftbar
+    leftbar.classList.toggle("open");  
 }
     </script>
 </body>
