@@ -136,7 +136,7 @@ function displayTransactions() {
       titleCell.style.backgroundColor = transaction.category === "Expense" ? "#f44336" : "#4CAF50";
       titleCell.style.color = "#fff"; 
       const amountCell = document.createElement("td");
-      amountCell.textContent = `${transaction.amount}฿`;
+      amountCell.textContent = `${parseFloat(transaction.amount).toLocaleString()}฿`;
       amountCell.style.border = "2px solid #dddddd";
       amountCell.style.padding = "8px";
       amountCell.style.backgroundColor = transaction.category === "Expense" ? "#f44336" : "#4CAF50";
