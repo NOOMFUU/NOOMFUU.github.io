@@ -1,4 +1,3 @@
-/* เริ่มต้นการตั้งค่า */
 * {
     margin: 0;
     padding: 0;
@@ -14,13 +13,11 @@ html {
     background-position: center;
     background-attachment: fixed;
 }
-/* ปรับขนาดของโลโก้ */
 img.logo {
     padding-top: 20px;
     width: 20rem;
     max-width: 100%;
 }
-/* ปรับ Leftbar สำหรับมือถือ */
 .leftbar {
     display: flex;
     flex-direction: column;
@@ -63,8 +60,6 @@ a {
     text-decoration: none;
     color: white;
 }
-
-/* ปรับการจัดวางสำหรับเนื้อหาหลัก */
 .controls {
     margin-top: 35px;
     margin-left: 420px;
@@ -92,8 +87,6 @@ a {
     padding: 10px;
     width: 150px;
 }
-
-/* ฟอร์ม */
 .content-head {
     background-color: #00000060;
     position: fixed;
@@ -116,8 +109,6 @@ a {
     left: 50%;
     transform: translate(-50%, -50%);
 }
-
-/* สไตล์ของ modal content */
 .modal-content {
     display: flex;
     flex-direction: column;
@@ -155,8 +146,6 @@ a {
 .form-popup input:focus, .form-popup select:focus {
     border-color: #4CAF50;
 }
-
-/* ปุ่ม submit และ close */
 .button {
     display: flex;
     justify-content: space-between;
@@ -192,12 +181,10 @@ a {
 .leftbar p {
     color: white;
     font-size: 16px;
-    margin-top: auto; /* ดันข้อความไปล่างสุด */
-    padding-bottom: 40px; /* เพิ่มระยะห่างจากขอบล่าง */
+    margin-top: auto; 
+    padding-bottom: 40px; 
 }
 
-
-/* ปรับขนาดให้เหมาะสมกับหน้าจอ */
 @media (max-width: 768px) {
 
 
@@ -217,8 +204,6 @@ a {
         padding: 8px 15px;
     }
 }
-
-/* ตาราง */
 table {
     margin-top: 35px;
     margin-left: 400px;
@@ -235,8 +220,6 @@ th {
     background-color: #f4f4f4;
     font-weight: bold;
 }
-
-/* ปุ่มลบ */
 .delete-btn {
     background-color: #f44336;
     color: white;
@@ -249,8 +232,6 @@ th {
 .delete-btn:hover {
     background-color: #d32f2f;
 }
-
-/* สรุปยอด */
 .summary {
     margin-top: 35px;
     margin-left: 400px;
@@ -259,8 +240,6 @@ th {
     font-weight: bolder;
     font-size: 20px;
 }
-
-/* การแสดง modal */
 .content-head.show-modal {
     display: block;
 }
@@ -276,7 +255,6 @@ th {
     cursor: pointer;
 }
 
-/* แสดง leftbar สำหรับมือถือ */
 @media (max-width: 768px) {
 
     .toggle-btn {
@@ -316,8 +294,6 @@ th {
     .leftbar.open {
         left: 0; /* แสดง leftbar เมื่อเปิด */
     }
-
-    /* ปรับให้เนื้อหาหลักเต็มหน้าจอ */
     .content, .controls, table, .summary {
         margin-left: 10px;
     }
@@ -384,12 +360,10 @@ th {
     display: none;
 }
 }
-
 .toggle-btn:hover {
     background-color: #005f86;
 }
 
-/* ปรับให้เหมาะสมกับหน้าจอเล็ก */
 @media (max-width: 768px) {
     .controls {
         flex-direction: column;
@@ -415,18 +389,17 @@ th {
         padding: 10px 20px;
         border-radius: 5px;
         cursor: pointer;
-        margin-left: 10px; /* ให้ปุ่มเปิด-ปิดห่างจากปุ่ม "เพิ่มข้อมูล" */
+        margin-left: 10px;
     }
 }
 
-/* การตั้งค่ากรอบให้กับแต่ละพารากราฟ */
 .summarybox {
-    padding: 10px;                    /* ช่องว่างภายในกรอบ */
-    margin-bottom: 10px;              /* ช่องว่างระหว่างแต่ละบรรทัด */
-    border: 2px solid #ddd;           /* กรอบบางๆ สีเทา */
-    border-radius: 8px;               /* มุมโค้งมน */
-    background-color: #f9f9f9;        /* พื้นหลังสีอ่อน */
-    font-size: 18px;                  /* ขนาดตัวอักษร */
-    font-weight: bold;                /* ตัวหนา */
-    color: #333;                      /* สีตัวอักษร */
+    padding: 10px;                   
+    margin-bottom: 10px;              
+    border: 2px solid #ddd;           
+    border-radius: 8px;              
+    background-color: #f9f9f9;        
+    font-size: 18px;                 
+    font-weight: bold;              
+    color: #333;                     
 }
