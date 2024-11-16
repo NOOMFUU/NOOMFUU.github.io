@@ -1,0 +1,432 @@
+/* เริ่มต้นการตั้งค่า */
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Prompt, sans-serif;
+}
+html {
+    background-image: linear-gradient(to right, #EFEFBB, #D4D3DD);
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+/* ปรับขนาดของโลโก้ */
+img.logo {
+    padding-top: 20px;
+    width: 20rem;
+    max-width: 100%;
+}
+/* ปรับ Leftbar สำหรับมือถือ */
+.leftbar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 350px;
+    height: 100%;
+    background-color: #004777;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    padding: 20px 0;
+    transition: left 0.3s ease-in-out;
+    overflow-y: auto;
+}
+.leftbar .toggle-btn:hover {
+    background-color: #007bb5;
+}
+.leftbar.open {
+    left: 0;
+}
+ul {
+    display: block;
+    list-style-type: none;
+    padding: 0;
+    font-size: 30px;
+}
+li.home, li.box, li.Contact {
+    border: 6px solid;
+    border-radius: 30px;
+    padding: 15px 60px;
+    text-align: center;
+    margin-top: 40px;
+    transition: background-color 0.3s ease;
+}
+li.home:hover, li.box:hover, li.Contact:hover {
+    background-color: #007bb5;
+}
+a {
+    text-decoration: none;
+    color: white;
+}
+
+/* ปรับการจัดวางสำหรับเนื้อหาหลัก */
+.controls {
+    margin-top: 35px;
+    margin-left: 420px;
+    gap: 40px;
+    font-weight: bolder;
+    font-size: 20px;
+    display: flex;
+}
+.Add {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 25px;
+    padding: 10px;
+}
+.Add:hover {
+    background-color: #45a049;
+}
+.datePicker {
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    padding: 10px;
+    width: 150px;
+}
+
+/* ฟอร์ม */
+.content-head {
+    background-color: #00000060;
+    position: fixed;
+    display: none;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.content {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 400px;
+    padding: 30px;
+    position: relative;
+    overflow: hidden;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* สไตล์ของ modal content */
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.modal-content h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #004777;
+}
+.form-popup {
+    width: 100%;
+}
+.form-popup div {
+    margin: 15px 0;
+}
+.form-popup label {
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: #333;
+}
+.form-popup input, .form-popup select {
+    width: 90%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-top: 5px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+.form-popup input:focus, .form-popup select:focus {
+    border-color: #4CAF50;
+}
+
+/* ปุ่ม submit และ close */
+.button {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 20px;
+}
+.submit, .close {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border: none;
+}
+.submit {
+    background-color: #4CAF50;
+    color: white;
+}
+.submit:hover {
+    background-color: #45a049;
+}
+.close {
+    background-color: #f44336;
+    color: white;
+}
+.close:hover {
+    background-color: #d32f2f;
+}
+.submit:focus, .close:focus {
+    outline: none;
+}
+
+.leftbar p {
+    color: white;
+    font-size: 16px;
+    margin-top: auto; /* ดันข้อความไปล่างสุด */
+    padding-bottom: 40px; /* เพิ่มระยะห่างจากขอบล่าง */
+}
+
+
+/* ปรับขนาดให้เหมาะสมกับหน้าจอ */
+@media (max-width: 768px) {
+
+
+    .content {
+        width: 90%;
+        padding: 20px;
+    }
+    .modal-content h1 {
+        font-size: 20px;
+    }
+    .form-popup input, .form-popup select {
+        font-size: 14px;
+        padding: 10px;
+    }
+    .submit, .close {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+}
+
+/* ตาราง */
+table {
+    margin-top: 35px;
+    margin-left: 400px;
+    gap: 150px;
+    font-size: 20px;
+}
+th, td {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+    font-size: 18px;
+}
+th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+/* ปุ่มลบ */
+.delete-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.delete-btn:hover {
+    background-color: #d32f2f;
+}
+
+/* สรุปยอด */
+.summary {
+    margin-top: 35px;
+    margin-left: 400px;
+    display: flex;
+    gap: 240px;
+    font-weight: bolder;
+    font-size: 20px;
+}
+
+/* การแสดง modal */
+.content-head.show-modal {
+    display: block;
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: transparent;
+    color: white;
+    font-size: 24px;
+    border: none;
+    cursor: pointer;
+}
+
+/* แสดง leftbar สำหรับมือถือ */
+@media (max-width: 768px) {
+
+    .toggle-btn {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 1001;
+        background-color: #004777;
+        color: white;
+        font-size: 30px;
+        border: none;
+        cursor: pointer;
+    }
+    
+    .leftbar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 250px;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: -100%; /* ซ่อน leftbar */
+        background-color: #004777;
+        transition: left 0.3s ease-in-out;
+        z-index: 1000;
+    }
+
+    li.home, li.box, li.Contact {
+        border: 6px solid;
+        border-radius: 30px;
+        padding: 15px 20px;
+        text-align: center;
+        margin-top: 40px;
+        transition: background-color 0.3s ease;
+    }
+    .leftbar.open {
+        left: 0; /* แสดง leftbar เมื่อเปิด */
+    }
+
+    /* ปรับให้เนื้อหาหลักเต็มหน้าจอ */
+    .content, .controls, table, .summary {
+        margin-left: 10px;
+    }
+    .controls {
+        margin-left: 0;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .Add {
+        margin-top: 50px;
+        width: 94%;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 18px;
+    }
+    .datePicker {
+        font-size: 16px;
+        margin: auto;
+        padding: 8px;
+        width: 90%;
+    }
+    table {
+        width: auto;
+        font-size: 14px;
+        table-layout: auto
+    }
+    th, td {
+        padding: auto;
+    }
+    th {
+        font-size: 16px;
+    }
+    td {
+        font-size: 14px;
+    }
+    .summary {
+        margin-left: auto;
+        gap: 10px;
+        font-size: 16px;
+    }
+    .delete-btn {
+        font-size: 14px;
+        padding: 6px 12px;
+    }
+    .content {
+        width: 90%;
+        height: auto;
+        padding: 10px;
+    }
+    .modal-content {
+        padding: 20px;
+    }
+    .form-popup label {
+        font-size: 16px;
+    }
+    .form-popup input, .form-popup select {
+        font-size: 16px;
+        padding: 8px;
+    }
+}
+
+@media (min-width: 768px) {
+.toggle-btn {
+    display: none;
+}
+}
+
+.toggle-btn:hover {
+    background-color: #005f86;
+}
+
+/* ปรับให้เหมาะสมกับหน้าจอเล็ก */
+@media (max-width: 768px) {
+    .controls {
+        flex-direction: column;
+        gap: 10px;
+        margin-left: 0;
+    }
+
+    .Add {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 18px;
+        padding: 12px;
+    }
+
+    .toggle-btn {
+        background-color: #007bb5;
+        color: white;
+        font-size: 20px;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-left: 10px; /* ให้ปุ่มเปิด-ปิดห่างจากปุ่ม "เพิ่มข้อมูล" */
+    }
+}
+
+/* การตั้งค่ากรอบให้กับแต่ละพารากราฟ */
+.summarybox {
+    padding: 10px;                    /* ช่องว่างภายในกรอบ */
+    margin-bottom: 10px;              /* ช่องว่างระหว่างแต่ละบรรทัด */
+    border: 2px solid #ddd;           /* กรอบบางๆ สีเทา */
+    border-radius: 8px;               /* มุมโค้งมน */
+    background-color: #f9f9f9;        /* พื้นหลังสีอ่อน */
+    font-size: 18px;                  /* ขนาดตัวอักษร */
+    font-weight: bold;                /* ตัวหนา */
+    color: #333;                      /* สีตัวอักษร */
+}
