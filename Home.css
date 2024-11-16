@@ -7,45 +7,30 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100%;
-   /* ทำให้ทั้ง html และ body ครอบคลุมหน้าจอ */
     width: 100%;
-   /* ทำให้ width ครอบคลุมทั้งหมด */
 }
-/* ทำให้พื้นที่พื้นหลังครอบคลุมทั้งหมด */
 html {
     background: linear-gradient(to right, #EFEFBB, #D4D3DD);
-   /* พื้นหลังแบบ gradient */
     background-size: cover;
-   /* ขยายภาพพื้นหลังให้เต็มหน้าจอ */
     background-position: center;
-   /* จัดตำแหน่งพื้นหลังให้อยู่กลาง */
     background-attachment: fixed;
-   /* ทำให้พื้นหลังไม่เลื่อนตามเนื้อหา */
 }
-/* กำหนดการตั้งค่าใน body */
 body {
     height: 100%;
-   /* ให้ body ครอบคลุมความสูงเต็มหน้าจอ */
     width: 97%;
-   /* ให้ body ครอบคลุมความกว้างทั้งหมด */
     overflow-y: auto;
-   /* ให้เนื้อหาของ body เลื่อนตามได้ */
 }
-/* ปรับ logo ให้ดูดีขึ้น */
 img.logo {
     padding-top: 20px;
     width: 20rem;
     max-width: 100%;
-   /* รองรับการยืดหยุ่นในอุปกรณ์ขนาดเล็ก */
 }
-/* Leftbar ให้เต็มหน้าจอ */
 .leftbar {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 350px;
     height: 100%;
-   /* ปรับให้ leftbar ครอบคลุมความสูงเต็มหน้าจอ */
     background-color: #004777;
     position: fixed;
     top: 0;
@@ -54,7 +39,6 @@ img.logo {
     padding: 20px 0;
     transition: left 0.3s ease-in-out;
     overflow-y: auto;
-   /* ให้สามารถเลื่อนแถบด้านข้างได้ */
 }
 
 ul {
@@ -75,7 +59,6 @@ li.home, li.box, li.Contact {
 }
 li.home:hover, li.box:hover, li.Contact:hover {
     background-color: #007bb5;
-   /* ปรับเมื่อ hover */
 }
 a {
     text-decoration: none;
@@ -143,8 +126,6 @@ td.expense {
     display: flex;
     gap: 20px;
 }
-
-/* ปรับการจัดรูปแบบเดือน */
 section h3 {
     background-color: #2980B9;
     color: white;
@@ -152,8 +133,6 @@ section h3 {
     margin-top: 30px;
     text-align: center;
 }
-
-/* สรุปยอดรายเดือน */
 .monthly-summary {
     background-color: #ffffff;
     padding: 20px;
@@ -185,33 +164,25 @@ button {
 button:hover {
     background-color: #C0392B;
 }
-
-/* สไตล์พื้นฐานสำหรับมือถือ */
 @media (max-width: 768px) {
     html {
         background-size: cover;
-       /* ให้พื้นหลังขยายเต็มหน้าจอ */
         background-position: center;
-       /* จัดตำแหน่งให้พื้นหลังอยู่ตรงกลาง */
         min-height: 100vh;
-       /* ให้ความสูงของหน้าเต็มหน้าจอ */
    }
     body {
         margin: 0;
         padding: 0;
         height: 100vh;
-       /* ให้ความสูงของ body เท่ากับความสูงของหน้าจอ */
    }
-   /* ลดความกว้างของ leftbar */
     .leftbar {
         width: 237px;
         position: fixed;
         top: 0;
         bottom: 0;
         left: -380px;
-       /* ซ่อน leftbar เมื่อเริ่มต้น */
         background-color: #004777;
-        height: 100%; /* ความสูงเต็มหน้าจอ */
+        height: 100%; 
         transition: left 0.3s ease;
         padding: 20px 0;
    }
@@ -236,17 +207,14 @@ button:hover {
         padding: 15px 20px;
         text-align: center;
    }
-   /* แสดง leftbar เมื่อเปิดใช้งาน */
     .leftbar.open {
         left: 0;
         
    }
-   /* ปรับขนาดโลโก้ */
     img.logo {
         width: 12rem;
         padding-top: 20px;
    }
-   /* เพิ่มปุ่ม toggle เพื่อเปิด/ปิด leftbar */
     .leftbar .toggle-btn {
         position: absolute;
         top: 20px;
@@ -258,7 +226,6 @@ button:hover {
         padding: 10px;
         cursor: pointer;
    }
-   /* เมื่อ leftbar เปิด, ให้เนื้อหาหลักเลื่อนขึ้น */
     .summary {
         margin-left: 0;
         transition: margin-left 0.3s ease;
@@ -266,26 +233,21 @@ button:hover {
     .leftbar.open + .summary {
         margin-left: 250px;
    }
-   /* ทำให้ตารางและเนื้อหามีช่องว่างเพียงพอ */
     .total p {
         font-size: 16px;
         padding: 10px;
         width: auto;
    }
-   /* ปรับขนาดโลโก้ให้พอดีกับหน้าจอมือถือ */
     img.logo {
         width: 15rem;
         padding-top: 20px;
    }
-   /* ทำให้หน้าจอสรุปมีขนาดเต็มหน้าจอ */
     .summary {
         width: 95%;
         margin-left: 0;
         padding: 10px;
         font-size: 18px;
-       /* ลดขนาดตัวอักษรในมือถือ */
    }
-   /* ปรับรูปแบบการแสดงผลรายรับ รายจ่ายให้แสดงผลแบบแนวตั้ง */
     .total {
         flex-direction: column;
         align-items: flex-start;
@@ -293,28 +255,22 @@ button:hover {
    }
     .total p {
         font-size: 16px;
-       /* ลดขนาดตัวอักษรในมือถือ */
         padding: 10px;
         width: auto;
    }
-   /* ปรับขนาดตารางให้เหมาะสมกับหน้าจอมือถือ */
     table {
         width: 100%;
         font-size: 14px;
-       /* ลดขนาดตัวอักษรในตาราง */
    }
     th, td {
         padding: 8px;
    }
     th {
         font-size: 16px;
-       /* ลดขนาดตัวอักษรในส่วนหัวตาราง */
    }
     td {
         font-size: 14px;
-       /* ลดขนาดตัวอักษรในตาราง */
    }
-   /* ปรับสไตล์สำหรับกล่องสรุปยอดรวมในมือถือ */
     .monthly-summary {
         flex-direction: flex-start;
         align-items: center;
@@ -325,7 +281,6 @@ button:hover {
         font-size: 16px;
         margin: 5px 0;
    }
-   /* ปรับช่องว่างและการแสดงผลปุ่มให้เหมาะสม */
     button {
         padding: 10px 20px;
         font-size: 14px;
@@ -334,12 +289,12 @@ button:hover {
 }
 
 a {
-    display: block;  /* Makes the link occupy the entire li */
+    display: block;  
 }
 
 .leftbar p {
     color: white;
     font-size: 16px;
-    margin-top: auto; /* ดันข้อความไปล่างสุด */
-    padding-bottom: 40px; /* เพิ่มระยะห่างจากขอบล่าง */
+    margin-top: auto; 
+    padding-bottom: 40px; 
 }
