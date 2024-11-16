@@ -7,7 +7,7 @@ function setDefaultDate() {
   const mm = String(today.getMonth() + 1).padStart(2, '0');
   const dd = String(today.getDate()).padStart(2, '0');
 
-  const currentDate = `${yyyy}-${mm}-${dd}`;
+  const currentDate = `${dd}-${mm}-${yyyy}`;
 
   const savedDate = localStorage.getItem("selectedDate");
 
