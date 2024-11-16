@@ -199,6 +199,23 @@ function deleteTransaction(index, selectedDate) {
   calculateTotals(); 
 }
 
+function formatDate(date) {
+  const [day, month, year] = date.split('-');
+  return `${day}-${month}-${year}`;
+}
+
+function saveTransaction(category, title, amount, date) {
+  const transaction = {
+      category,
+      title,
+      amount,
+      date: formatDate(date) // แปลงวันที่ก่อนเก็บ
+  };
+  let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+  transactions.push(transaction);
+  localStorage.setItem("transactions", JSON.stringify(transactions));
+  calculateTotals();
+}
 
 form.addEventListener("submit", (event) => {
   event.preventDefault(); 
