@@ -27,12 +27,12 @@
     <div class="summary" id="summaryDisplay">
         <div class="close">
             <button class="toggle-btn" onclick="toggleLeftBar()">☰</button>
-            <h2>สรุปยอดรวมทั้งหมด</h2>
+            <h2>ยอดรวมทั้งหมด</h2><br>
         </div>
         <div class="total">
-            <p id="incomeTotalDisplay" style="color:#2ECC71 ;">รายรับรวม: </p>
-            <p id="expenseTotalDisplay" style="color:#E74C3C">รายจ่ายรวม:</p>
-            <p id="balanceTotalDisplay" style="color:rgb(105, 188, 255)">ยอดคงเหลือ: </p>
+            <p id="incomeTotalDisplay" style="color:#2ECC71; border-color: #2ECC71;">รายรับรวม: </p>
+            <p id="expenseTotalDisplay" style="color:#E74C3C; border-color: #E74C3C">รายจ่ายรวม:</p>
+            <p id="balanceTotalDisplay" style="color:rgb(105, 188, 255); border-color:rgb(105, 188, 255)">ยอดคงเหลือ: </p>
         </div>
         <div class="TransactionSummary">
             <h2>การใช้จ่ายรวม</h2>
@@ -57,7 +57,7 @@
             transactions.forEach(transaction => {
                 const date = new Date(transaction.date);
                 const monthName = monthNames[date.getMonth()]; 
-                const year = date.getFullYear();
+                const year = date.getFullYear() +543;
                 const monthYear = `เดือน${monthName} ${year}`;  
         
                 if (!groupedTransactions[monthYear]) {
@@ -116,7 +116,7 @@
                 summaryBox.innerHTML = `
                     <p>รายรับ: ${monthlySummary[monthYear].incomeTotal}฿</p>
                     <p>รายจ่าย: ${monthlySummary[monthYear].expenseTotal}฿</p>
-                    <p>ยอดคงเหลือ: ${monthlySummary[monthYear].balanceTotal}฿</p>
+                    <p>สรุปยอด: ${monthlySummary[monthYear].balanceTotal}฿</p>
                 `;
                 monthSection.appendChild(summaryBox); 
 
@@ -141,31 +141,38 @@
                 let rowColor = "";
 
                 groupedTransactions[monthYear].forEach((transaction, index) => {
-                const row = document.createElement("tr");
+                    const row = document.createElement("tr");
 
-                const currentDate = transaction.date;
-                if (currentDate !== previousDate) {
-                    rowColor = rowColor === "#D6EAF8" ? "#FADBD8" : "#D6EAF8"; // สลับสีพื้นหลัง
-                    previousDate = currentDate;
-                }
+                    const currentDate = transaction.date;
+                    if (currentDate !== previousDate) {
+                        rowColor = rowColor === "#D6EAF8" ? "#FADBD8" : "#D6EAF8"; // สลับสีพื้นหลัง
+                        previousDate = currentDate;
+                    }
 
-                row.style.backgroundColor = rowColor;
+                    row.style.backgroundColor = rowColor;
 
-                const category = transaction.category === "Income" ? "รายรับ" : "รายจ่าย";
-                const categoryClass = transaction.category === "Income" ? "income" : "expense"; 
-                const categoryColor = transaction.category === "Income" ? "#4CAF50" : "#f44336"; 
+                    const category = transaction.category === "Income" ? "รายรับ" : "รายจ่าย";
+                    const categoryClass = transaction.category === "Income" ? "income" : "expense"; 
+                    const categoryColor = transaction.category === "Income" ? "#4CAF50" : "#f44336"; 
 
-                row.innerHTML = `
-                    <td>${index + 1}</td>
-                    <td class="${categoryClass}" style="background-color: ${categoryColor}; color: #fff;">${category}</td>
-                    <td class="title">${transaction.title}</td>
-                    <td>${parseFloat(transaction.amount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}฿</td>
-                    <td>${transaction.date}</td>
-                `;
+                    // ใช้ toLocaleDateString() แปลงวันที่
+                    const transactionDate = new Date(transaction.date);
+                    const formattedDate = transactionDate.toLocaleDateString('th-TH', {
+                        day: '2-digit',
+                        month: 'short',  // เดือนย่อ
+                        year: 'numeric'
+                    });
 
-            tbody.appendChild(row);
-        });
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td class="${categoryClass}" style="background-color: ${categoryColor}; color: #fff;">${category}</td>
+                        <td class="title">${transaction.title}</td>
+                        <td>${parseFloat(transaction.amount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}฿</td>
+                        <td>${formattedDate}</td>  
+                    `;
 
+                    tbody.appendChild(row);
+                });
                 monthSection.appendChild(table); 
                 transactionTable.appendChild(monthSection);
             }

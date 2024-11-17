@@ -40,15 +40,12 @@ img.logo {
     transition: left 0.3s ease-in-out;
     overflow-y: auto;
 }
-
 ul {
     display: block;
     list-style-type: none;
     padding: 0;
     font-size: 30px;
 }
-
-
 li.home, li.box, li.Contact {
     border: 6px solid;
     border-radius: 30px;
@@ -68,7 +65,6 @@ a {
     margin-top: 35px;
     margin-left: 400px;
     gap: 150px;
-    font-weight: bolder;
     font-size: 20px;
 }
 .total {
@@ -87,7 +83,8 @@ a {
     width: 100%;
     border-radius: 8px;
     text-align: center;
-    font-size: 18px;
+    font-size: 25px;
+    font-weight: bold;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 .TransactionSummary {
@@ -130,7 +127,7 @@ section h3 {
     background-color: #2980B9;
     color: white;
     padding: 10px;
-    margin-top: 30px;
+    margin-top: 20px;
     text-align: center;
 }
 .monthly-summary {
@@ -146,7 +143,7 @@ section h3 {
 }
 .monthly-summary p {
     margin: 0;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: 500;
     color: #000000;
 }

@@ -7,7 +7,7 @@ function setDefaultDate() {
   const mm = String(today.getMonth() + 1).padStart(2, '0');
   const dd = String(today.getDate()).padStart(2, '0');
 
-  const currentDate = `${dd}-${mm}-${yyyy}`;
+  const currentDate = `${yyyy}-${mm}-${dd}`;
 
   const savedDate = localStorage.getItem("selectedDate");
 
@@ -70,7 +70,7 @@ function saveTransaction(category, title, amount, date) {
 }
 
 function displayTransactions() {
-  const selectedDate = document.getElementById("datePicker").value; 
+  const selectedDate = document.getElementById("datePicker").value;
   const transactions = selectedDate ? filterTransactionsByDate(selectedDate) : JSON.parse(localStorage.getItem("transactions")) || [];
 
   transactionList.innerHTML = ""; 
@@ -90,18 +90,25 @@ function displayTransactions() {
     <th style="width: 0px;">#</th>
     <th style="width: 0px;">ประเภท</th>
     <th style="width: 40%;">เรื่อง</th>
-    <th style="width: 20%;">จำนวน</th>
-    <th style="width: 10%;">วันที่</th>
-    <th style="width: 10%;">Action</th>
+    <th style="width: 30%;">จำนวน</th>
+    <th style="width: 12%;">วันที่</th>
+    <th style="width: 0px;">Action</th>
   </tr>
 </thead>
 <tbody>
 </tbody>
 `;
+
   const tbody = table.querySelector("tbody");
 
   transactions.forEach((transaction, index) => {
       const row = document.createElement("tr");
+      const transactionDate = new Date(transaction.date);
+      const formattedDate = transactionDate.toLocaleDateString('th-TH', {
+          day: '2-digit',
+          month: 'short',
+          year: 'numeric'
+      });
 
       const indexCell = document.createElement("td");
       indexCell.textContent = index + 1;
@@ -110,7 +117,6 @@ function displayTransactions() {
       indexCell.style.textAlign = "center";
       indexCell.style.backgroundColor = transaction.category === "Expense" ? "#f44336" : "#4CAF50"; 
       indexCell.style.color = "#fff"; 
-      indexCell.style.fontWeight = "bold";
 
       const categoryCell = document.createElement("td");
 
@@ -135,6 +141,7 @@ function displayTransactions() {
       titleCell.style.textAlign = "left";
       titleCell.style.backgroundColor = transaction.category === "Expense" ? "#f44336" : "#4CAF50";
       titleCell.style.color = "#fff"; 
+
       const amountCell = document.createElement("td");
       amountCell.textContent = `${parseFloat(transaction.amount).toLocaleString()}฿`;
       amountCell.style.border = "2px solid #dddddd";
@@ -143,7 +150,7 @@ function displayTransactions() {
       amountCell.style.color = "#fff"; 
 
       const dateCell = document.createElement("td");
-      dateCell.textContent = transaction.date;
+      dateCell.textContent = formattedDate; // ใช้วันที่ที่ถูกแปลง
       dateCell.style.border = "2px solid #dddddd";
       dateCell.style.padding = "8px";
       dateCell.style.textAlign = "center";
@@ -185,6 +192,7 @@ function displayTransactions() {
   });
 }
 
+
 function deleteTransaction(index, selectedDate) {
   let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
 
@@ -199,23 +207,6 @@ function deleteTransaction(index, selectedDate) {
   calculateTotals(); 
 }
 
-function formatDate(date) {
-  const [day, month, year] = date.split('-');
-  return `${day}-${month}-${year}`;
-}
-
-function saveTransaction(category, title, amount, date) {
-  const transaction = {
-      category,
-      title,
-      amount,
-      date: formatDate(date) // แปลงวันที่ก่อนเก็บ
-  };
-  let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
-  transactions.push(transaction);
-  localStorage.setItem("transactions", JSON.stringify(transactions));
-  calculateTotals();
-}
 
 form.addEventListener("submit", (event) => {
   event.preventDefault(); 
@@ -237,32 +228,39 @@ form.addEventListener("submit", (event) => {
 });
 
 function calculateTotals() {
-  const selectedDate = document.getElementById("datePicker").value; // วันที่ที่เลือกจาก datePicker
+  const selectedDate = document.getElementById("datePicker").value;
   const transactions = selectedDate ? filterTransactionsByDate(selectedDate) : JSON.parse(localStorage.getItem("transactions")) || [];
 
   let totalIncome = 0;
   let totalExpense = 0;
 
   transactions.forEach(transaction => {
-      if (transaction.category === "Income") {
-          totalIncome += parseFloat(transaction.amount);
-      } else if (transaction.category === "Expense") {
-          totalExpense += parseFloat(transaction.amount);
-      }
+    if (transaction.category === "Income") {
+      totalIncome += parseFloat(transaction.amount);
+    } else if (transaction.category === "Expense") {
+      totalExpense += parseFloat(transaction.amount);
+    }
   });
 
   const totalBalance = totalIncome - totalExpense;
 
   const summary = document.getElementById("summary");
+
+  const formattedDate = new Date(selectedDate).toLocaleDateString('th-TH', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric'
+  });
+
   if (transactions.length > 0) {
-      summary.innerHTML = `
-  <p class="summarybox"><strong>วันที่: ${selectedDate}</strong></p>
-  <p class="summarybox">รายรับ: ${totalIncome.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}฿</p>
-  <p class="summarybox">รายจ่าย: ${totalExpense.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}฿</p>
-  <p class="summarybox">ยอดรวม: ${totalBalance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}฿</p>
-  `;
+    summary.innerHTML = `
+      <p class="summarybox"><strong>วันที่: ${formattedDate}</strong></p>
+      <p class="summarybox">รายรับ: ${totalIncome.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}฿</p>
+      <p class="summarybox">รายจ่าย: ${totalExpense.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}฿</p>
+      <p class="summarybox">สรุปยอด: ${totalBalance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}฿</p>
+    `;
   } else {
-      summary.innerHTML = "<p>ไม่พบข้อมูลการบันทึก</p>";
+    summary.innerHTML = "<p>ไม่พบข้อมูล</p>";
   }
 }
 
@@ -297,9 +295,9 @@ function renderSummaryOnHome() {
   if (summaryResult) {
       document.getElementById("incomeTotalDisplay").textContent = `รายรับรวม: ${summaryResult.incomeTotal}฿`;
       document.getElementById("expenseTotalDisplay").textContent = `รายจ่ายรวม: ${summaryResult.expenseTotal}฿`;
-      document.getElementById("balanceTotalDisplay").textContent = `ยอดคงเหลือ: ${summaryResult.balanceTotal}฿`;
+      document.getElementById("balanceTotalDisplay").textContent = `สรุปยอด: ${summaryResult.balanceTotal}฿`;
   } else {
-      console.error("ไม่พบข้อมูลสรุปยอดรวม");
+      console.error("ไม่พบข้อมูล");
   }
 }
 
