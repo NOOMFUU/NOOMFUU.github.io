@@ -330,7 +330,7 @@ th {
         font-size: 14px;
     }
     .summary {
-        margin-left: auto;
+        margin-left: 20px;
         gap: 10px;
         font-size: 16px;
     }
