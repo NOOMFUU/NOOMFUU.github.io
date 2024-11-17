@@ -75,11 +75,6 @@ function displayTransactions() {
 
   transactionList.innerHTML = ""; 
 
-  if (transactions.length === 0) {
-      transactionList.innerHTML = "<p>No transactions recorded for this date.</p>";
-      return;
-  }
-
   const table = document.createElement("table");
   table.style.width = "75%";
   table.style.borderCollapse = "collapse";
