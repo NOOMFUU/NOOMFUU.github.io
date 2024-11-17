@@ -75,6 +75,11 @@ function displayTransactions() {
 
   transactionList.innerHTML = ""; 
 
+  if (transactions.length === 0) {
+    transactionList.innerHTML = "<p></p>";
+    return;
+  }
+
   const table = document.createElement("table");
   table.style.width = "75%";
   table.style.borderCollapse = "collapse";
